@@ -7,10 +7,11 @@ import router from './router'
 // 加载ui组件样式和注册部分全局组件
 import {Loading, Message} from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-Vue.use(Loading);
-Vue.use(Message);
 Vue.prototype.$loading = Loading;
 Vue.prototype.$message = Message;
+
+// 引入公共样式
+import '@/assets/css/common.styl';
 
 // 加载配置文件
 import config from './config';
