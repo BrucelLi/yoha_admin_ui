@@ -6,5 +6,9 @@ export default {
             let $res = $msg + config.fcTest;
             return $res;
         },
+
+        checkPhone() {
+
+        }
     }
 }

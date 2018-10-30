@@ -14,6 +14,12 @@ const Container = r => require.ensure([], () => r(require('../views/Container.vu
 // 登录
 const Login = r => require.ensure([], () => r(require('../views/login/Login')), 'Login');
 
+// 注册
+const Reg = r => require.ensure([], () => r(require('../views/login/Reg')), 'Login');
+
+// 找回密码
+const FindPwdOne = r => require.ensure([], () => r(require('../views/login/FindPwdOne')), 'Login');
+
 // 首页相关路由
 import home from './home';
 // 测试路由
@@ -41,6 +47,22 @@ let routesArr = [
                     title: 'yoha管理后台'
                 },
                 component:Login
+            },
+            {
+                path: 'reg',
+                name: 'reg',
+                meta: {
+                    title: 'yoha管理后台'
+                },
+                component:Reg
+            },
+            {
+                path: 'findPwdOne',
+                name: 'findPwdOne',
+                meta: {
+                    title: 'yoha管理后台'
+                },
+                component:FindPwdOne
             },
             home,
             test

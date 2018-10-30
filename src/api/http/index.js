@@ -36,7 +36,9 @@ export function post(path = '', data = {}, type = 'json') {
         headers.Accept = '*/*'
         headers['Content-Type'] = 'application/x-www-form-urlencoded'
     }
+    console.info(4444, url, data)
     return new Promise((resolve, reject) => {
+
         instance.post(url, data, {
             headers: headers,
             transformRequest: [data => {
@@ -67,6 +69,11 @@ export function post(path = '', data = {}, type = 'json') {
                     reject(new Error(r.data.message))
                     return false
                 }
+
+                if (typeof r.data.message !== 'undefined' && r.data.message !== 'OK' && parseInt(r.data.code) === 0) {
+                    $vue.$message.success(r.data.message);
+                }
+
                 resolve(r.data)
             } else {
                 $vue.$message.error('网络不给力,请稍后再试!');
@@ -121,6 +128,9 @@ export function get (path = '', data = {}) {
                     $vue.$message.error(r.data.message);
                     reject(new Error(r.data.message))
                     return false
+                }
+                if (typeof r.data.message !== 'undefined' && r.data.message !== 'OK' && parseInt(r.data.code) === 0) {
+                    $vue.$message.success(r.data.message);
                 }
                 resolve(r.data)
             } else {
