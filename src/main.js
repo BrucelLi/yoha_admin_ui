@@ -15,6 +15,7 @@ import '@/assets/css/common.styl';
 
 // 加载配置文件
 import config from './config';
+Vue.prototype.$config = config;
 
 // 将辅助函数设置为全局
 import mixins from './mixins'
@@ -27,12 +28,12 @@ Vue.prototype.$http = http;
 // 路由前置
 let loadingObj;
 router.beforeEach((to, from, next) => {
+    let $vue = new Vue();
     to.matched.some((record, index, arr) => {
         if (index === arr.length - 1) {
-            document.title = record.meta.title ? record.meta.title : config.webTitle
+            document.title = record.meta.title ? record.meta.title : $vue.$config.webTitle
         }
     })
-    let $vue = new Vue();
     loadingObj = $vue.$loading.service();
     next()
 });

@@ -3,7 +3,9 @@ const config = {
     routePrefix:"/pro",
     fcTest:"9999",
     baseApi: `${window.location.protocol}//${window.location.host}`,
-    webTitle:"yoha管理后台"
+    webTitle:"yoha管理后台",
+    apiUrl:'http://yoha-admin.test/api',
+    capUrl:'http://yoha-admin.test/api/admin/captcha',
 };
 
 export default config;

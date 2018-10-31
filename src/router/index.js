@@ -9,16 +9,16 @@ const routePrefix = config.routePrefix;
 //  路由分组
 //==================
 // 容器
-const Container = r => require.ensure([], () => r(require('../views/Container.vue')), 'Container');
+const Container = r => require.ensure([], () => r(require('@/views/Container.vue')), 'Container');
 
 // 登录
-const Login = r => require.ensure([], () => r(require('../views/login/Login')), 'Login');
+const Login = r => require.ensure([], () => r(require('@/views/login/Login')), 'Login');
 
 // 注册
-const Reg = r => require.ensure([], () => r(require('../views/login/Reg')), 'Login');
+const Reg = r => require.ensure([], () => r(require('@/views/login/Reg')), 'Login');
 
 // 找回密码
-const FindPwdOne = r => require.ensure([], () => r(require('../views/login/FindPwdOne')), 'Login');
+const FindPwdOne = r => require.ensure([], () => r(require('@/views/login/FindPwdOne')), 'Login');
 
 // 首页相关路由
 import home from './home';

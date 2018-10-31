@@ -1,7 +1,8 @@
 /**
  * 接口地址
  */
-let urlPre = 'http://yoha-admin.test';
+import config from '@/config';
+let urlPre = config.apiUrl;
 export default {
     'test':{
         'send':urlPre + "/admin/test"

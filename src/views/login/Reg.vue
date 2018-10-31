@@ -1,37 +1,42 @@
 <template>
     <div class="web_bg" :style="note">
-        <Form class="login_box" status-icon ref="regForm" :rules="rules" :model="regForm" label-width="80px">
-            <FormItem label-width="0" prop="name">
-                <Input v-model="regForm.name" placeholder="请输入用户名"></Input>
-            </FormItem>
-            <FormItem label-width="0" prop="pwd">
-                <Input type="password" v-model="regForm.password" placeholder="请输入密码"></Input>
-            </FormItem>
-            <FormItem label-width="0" prop="pwd2">
-                <Input type="password" v-model="regForm.password_confirmation" placeholder="请确认密码"></Input>
-            </FormItem>
-            <FormItem label-width="0" prop="phone">
-                <Input v-model="regForm.phone" placeholder="请输入手机号"></Input>
-            </FormItem>
-            <FormItem label-width="0" prop="cap">
-                <Input style="width: 8rem" v-model="regForm.cap" placeholder="请输入验证码"></Input>
-                <Button class="fr" size="medium" type="primary" @click.native="onReg">获取验证码</Button>
-            </FormItem>
-            <FormItem>
-                <Button class="login_btn" size="mini" type="primary" @click.native="onReg">注册</Button>
-                <Button class="login_btn" size="mini" type="primary" @click.native="resetForm('regForm')">重置</Button>
-            </FormItem>
-        </Form>
+        <LoginHead></LoginHead>
+        <div class="web_bg_box">
+            <Form class="login_box" status-icon ref="regForm" :rules="rules" :model="regForm" label-width="80px">
+                <FormItem label-width="0" prop="name">
+                    <Input v-model="regForm.name" placeholder="请输入用户名"></Input>
+                </FormItem>
+                <FormItem label-width="0" prop="pwd">
+                    <Input type="password" v-model="regForm.password" placeholder="请输入密码"></Input>
+                </FormItem>
+                <FormItem label-width="0" prop="pwd2">
+                    <Input type="password" v-model="regForm.password_confirmation" placeholder="请确认密码"></Input>
+                </FormItem>
+                <FormItem label-width="0" prop="phone">
+                    <Input v-model="regForm.phone" placeholder="请输入手机号"></Input>
+                </FormItem>
+                <FormItem label-width="0" prop="cap">
+                    <Input style="width: 8rem" v-model="regForm.cap" placeholder="请输入验证码"></Input>
+                    <Button class="fr" style="height: 40px" size="medium" type="primary" @click.native="onReg">获取验证码</Button>
+                </FormItem>
+                <FormItem>
+                    <Button class="login_btn" size="mini" type="primary" @click.native="onReg">注册</Button>
+                    <Button class="login_btn" size="mini" type="primary" @click.native="resetForm('regForm')">重置</Button>
+                </FormItem>
+            </Form>
+        </div>
     </div>
 </template>
 
 <script>
     import {Form, FormItem, Input, Button} from 'element-ui';
+    import LoginHead from '@/components/LoginHead.vue';
+    import "@/assets/css/login.styl"
 
     export default {
         name: "Reg",
         components: {
-            Form, FormItem, Input, Button
+            Form, FormItem, Input, Button, LoginHead
         },
         data() {
             var validatePass2 = (rule, value, callback) => {
@@ -116,12 +121,5 @@
 </script>
 
 <style scoped lang="stylus">
-    .login_box
-        width 17.5rem
-        height auto
-        margin 0 auto
-        background-color burlywood
-        padding 30px 15px 10px 15px
-    .login_btn
-        margin 0 2px;
+
 </style>

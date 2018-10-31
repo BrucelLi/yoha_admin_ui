@@ -1,15 +1,25 @@
 <template>
     <div>
-        <head-nav></head-nav>
-        <router-link :to="{ name: 'home', params: { userId: 123 }}">Home</router-link>
-        <router-link :to="{ name: 'test', params: { userId: 123 }}">test</router-link>
-        <router-link :to="{ name: 'login', params: { userId: 123 }}">login</router-link>
-        <router-view></router-view>
-        <foot-nav></foot-nav>
+        <container>
+            <head-nav></head-nav>
+            <container>
+                <aside width="200px"> Aside</aside>
+                <container>
+                    <main>
+                        Main
+                        <router-link :to="{ name: 'home', params: { userId: 123 }}">Home</router-link>
+                        <router-link :to="{ name: 'test', params: { userId: 123 }}">test</router-link>
+                        <router-link :to="{ name: 'login', params: { userId: 123 }}">login</router-link>
+                    </main>
+                    <foot-nav></foot-nav>
+                </container>
+            </container>
+        </container>
     </div>
 </template>
 
 <script>
+    import {Container, Aside, Main} from 'element-ui';
     import HeadNav from '../../components/HeadNavComponent';
     import FootNav from '../../components/FootNavComponent';
 
@@ -17,7 +27,10 @@
         name: "Home",
         components: {
             HeadNav,
-            FootNav
+            FootNav,
+            Container,
+            Aside,
+            Main
         },
     }
 </script>

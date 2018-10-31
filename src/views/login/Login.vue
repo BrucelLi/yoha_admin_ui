@@ -1,33 +1,38 @@
 <template>
     <div class="web_bg" :style="note">
-        <Form class="login_box" status-icon ref="formName" :rules="rules" :model="formName" label-width="80px">
-            <FormItem label-width="0" prop="name">
-                <Input v-model="formName.name" placeholder="请输入用户名"></Input>
-            </FormItem>
-            <FormItem label-width="0" prop="pwd">
-                <Input type="password" v-model="formName.pwd" placeholder="请输入密码"></Input>
-            </FormItem>
-            <FormItem label-width="0" prop="cap">
-                <Input style="width: 8rem" v-model="formName.cap" placeholder="请输入验证码"></Input>
-                <img class="hand fr" v-on:click="getCaptcha" v-bind:src="captchaImg" alt="验证码" title="点击刷新验证码"/>
-            </FormItem>
-            <FormItem>
-                <Button class="login_btn" size="mini" type="primary" @click.native="onLogin">登录</Button>
-                <Button class="login_btn" size="mini" type="primary" @click.native="onReg">注册</Button>
-                <Button class="login_btn" size="mini" type="text" @click.native="onFindPwd">忘记密码？</Button>
-            </FormItem>
-        </Form>
+        <LoginHead></LoginHead>
+        <div class="web_bg_box">
+            <Form class="login_box" status-icon ref="formName" :rules="rules" :model="formName" label-width="80px">
+                <FormItem  label-width="0" prop="name">
+                    <Input v-model="formName.name" placeholder="请输入用户名"></Input>
+                </FormItem>
+                <FormItem label-width="0" prop="pwd">
+                    <Input type="password" v-model="formName.pwd" placeholder="请输入密码"></Input>
+                </FormItem>
+                <FormItem label-width="0" prop="cap">
+                    <Input style="width: 8rem" v-model="formName.cap" placeholder="请输入验证码"></Input>
+                    <img class="hand fr" v-on:click="getCaptcha" v-bind:src="captchaImg" alt="验证码" title="点击刷新验证码"/>
+                </FormItem>
+                <FormItem>
+                    <Button class="login_btn" size="mini" type="primary" @click.native="onLogin">登录</Button>
+                    <Button class="login_btn" size="mini" type="primary" @click.native="onReg">注册</Button>
+                    <Button class="login_btn" size="mini" type="text" @click.native="onFindPwd">忘记密码？</Button>
+                </FormItem>
+            </Form>
+        </div>
     </div>
 </template>
 
 <script>
     import {Form, FormItem, Input, Button} from 'element-ui';
+    import LoginHead from '@/components/LoginHead.vue';
+    import "@/assets/css/login.styl"
 
     export default {
         name: "Login",
         props: {},
         components: {
-            Form, FormItem, Input, Button
+            Form, FormItem, Input, Button, LoginHead
         },
         data() {
             return {
@@ -50,7 +55,7 @@
                         {required: true, message: '请输入验证码', trigger: 'blur'},
                     ]
                 },
-                captchaImg:'http://yoha-admin.test/admin/captcha',
+                captchaImg:'',
             }
         },
         mounted() {
@@ -61,7 +66,7 @@
                 backgroundImage: "url(" + this.bgUrl + ")",
                 height: winH,
             };
-            this.getCaptcha();
+            this.captchaImg = this.$config.capUrl;
             console.info(this.captchaImg)
         },
         methods: {
@@ -85,7 +90,7 @@
                 this.$router.push({ name: 'findPwdOne', params: { userId: 2 }})
             },
             getCaptcha() {
-                this.captchaImg =  this.captchaImg + "?" + Math.random();
+                this.captchaImg = this.$config.capUrl + "?" + Math.random();
             },
             resetForm(formName) {
                 this.$refs[formName].resetFields();
@@ -100,12 +105,5 @@
 </script>
 
 <style scoped lang="stylus">
-    .login_box
-        width 17.5rem
-        height auto
-        margin 0 auto
-        background-color burlywood
-        padding 30px 15px 10px 15px
-    .login_btn
-        margin 0 2px;
+
 </style>
