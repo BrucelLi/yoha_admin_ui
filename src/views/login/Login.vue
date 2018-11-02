@@ -60,11 +60,13 @@
         },
         mounted() {
             // 加载初始数据
-            let winH = document.body.clientHeight + 'px';
+            let winH = window.innerHeight + 'px';
+            let winW = window.innerWidth + 'px';
             console.info(winH);
             this.note = {
                 backgroundImage: "url(" + this.bgUrl + ")",
                 height: winH,
+                width:winW
             };
             this.captchaImg = this.$config.capUrl;
             console.info(this.captchaImg)

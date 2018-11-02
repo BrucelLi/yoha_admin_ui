@@ -11,7 +11,7 @@ Vue.prototype.$loading = Loading;
 Vue.prototype.$message = Message;
 
 // 引入公共样式
-import '@/assets/css/common.styl';
+import './assets/css/common.styl';
 
 // 加载配置文件
 import config from './config';
