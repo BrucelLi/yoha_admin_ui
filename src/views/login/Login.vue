@@ -7,7 +7,7 @@
                     <Input v-model="formName.name" placeholder="请输入用户名"></Input>
                 </FormItem>
                 <FormItem label-width="0" prop="pwd">
-                    <Input type="password" v-model="formName.pwd" placeholder="请输入密码"></Input>
+                    <Input type="password" v-model="formName.password" placeholder="请输入密码"></Input>
                 </FormItem>
                 <FormItem label-width="0" prop="cap">
                     <Input style="width: 8rem" v-model="formName.cap" placeholder="请输入验证码"></Input>
@@ -40,7 +40,7 @@
                 note: {},
                 formName: {
                     name: '',
-                    pwd:'',
+                    password:'',
                     cap:'',
                 },
                 rules: {
@@ -48,7 +48,7 @@
                         {required: true, message: '请输入用户姓名', trigger: 'blur'},
                         {min: 3, max: 25, message: '长度在 3 到 25 个字符', trigger: 'blur'}
                     ],
-                    pwd:[
+                    password:[
                         {required: true, message: '请输入密码', trigger: 'blur'},
                     ],
                     cap:[
@@ -81,7 +81,12 @@
             onLogin() {
                 this.$refs['formName'].validate((valid) => {
                     if (valid) {
-                        console.log('success login！！');
+                        this.$http.post('login.login', this.formName).then(r => {
+                            if (r.code === 0) {
+                                this.setCache('login_token', r.data.token);
+                                this.$router.push({name:'home'});
+                            }
+                        });
                     } else {
                         console.log('error submit!!');
                         return false;

@@ -1,4 +1,5 @@
 import config from '../config';
+import storage from 'good-storage';
 
 export default {
     methods: {
@@ -80,6 +81,46 @@ export default {
                 return false
             }
             window.location.href = 'tel://' + phoneNumber
+        },
+        /**
+         * 获取缓存
+         * @param key
+         * @param defaultValue
+         * @returns {*}
+         */
+        getCache(key, defaultValue = null) {
+            let cacheKey = config.cachePre + key;
+            return storage.get(cacheKey, defaultValue)
+        },
+        /**
+         * 设置缓存
+         * @param key
+         * @param value
+         * @returns {*}
+         */
+        setCache(key, value) {
+            let cacheKey = config.cachePre + key;
+            return storage.set(cacheKey, value)
+        },
+        /**
+         * 获取session缓存
+         * @param key
+         * @param defaultValue
+         * @returns {*}
+         */
+        getSessionCache(key, defaultValue = null) {
+            let cacheKey = config.cachePre + key;
+            return storage.session.get(cacheKey, value)
+        },
+        /**
+         * 设置session缓存
+         * @param key
+         * @param value
+         * @returns {*}
+         */
+        setSessionCache(key, value) {
+            let cacheKey = config.cachePre + key;
+            return storage.session.set(cacheKey, value)
         }
     }
 }

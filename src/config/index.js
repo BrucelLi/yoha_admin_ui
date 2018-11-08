@@ -6,6 +6,7 @@ const config = {
     webTitle:"yoha管理后台",
     apiUrl:'http://yoha-admin.test/api',
     capUrl:'http://yoha-admin.test/api/admin/captcha',
+    cachePre:'yoha_cache_',
 };
 
 export default config;

@@ -1,8 +1,8 @@
 import config from '../../config';
 import axios from 'axios'
 import Vue from 'vue'
-import qs from 'qs'
-var $vue = new Vue()
+import qs from 'qs';
+var $vue = new Vue();
 
 let instance = axios.create({
     baseURL: config.baseUri
@@ -13,6 +13,7 @@ let headers = {
     // 'Content-Type': 'application/x-www-form-urlencoded',
     'Content-Type': 'application/json',
     'X-Requested-With': 'XMLHttpRequest',
+    'Authorization':'',
 };
 
 
@@ -36,7 +37,6 @@ export function post(path = '', data = {}, type = 'json') {
         headers.Accept = '*/*'
         headers['Content-Type'] = 'application/x-www-form-urlencoded'
     }
-    console.info(4444, url, data)
     return new Promise((resolve, reject) => {
 
         instance.post(url, data, {
@@ -66,7 +66,10 @@ export function post(path = '', data = {}, type = 'json') {
                 if ((typeof r.data.status !== 'undefined' && parseInt(r.data.status) !== 0) ||
                     (typeof r.data.code !== 'undefined' && parseInt(r.data.code) !== 0)) {
                     $vue.$message.error(r.data.message);
-                    reject(new Error(r.data.message))
+                    reject(new Error(r.data.message));
+                    if (r.data.code === 530 || r.data.code === 531 || r.data.code === 532 || r.data.code === 533 || r.data.code === 534)  {
+                        $vue.$router.push({name:'login'});
+                    }
                     return false
                 }
 
@@ -126,12 +129,16 @@ export function get (path = '', data = {}) {
                     (typeof r.data.code !== 'undefined' &&
                         parseInt(r.data.code) !== 0)) {
                     $vue.$message.error(r.data.message);
-                    reject(new Error(r.data.message))
+                    reject(new Error(r.data.message));
+                    if (r.data.code === 530 || r.data.code === 531 || r.data.code === 532 || r.data.code === 533 || r.data.code === 534)  {
+                        $vue.$router.push({name:'login'});
+                    }
                     return false
                 }
                 if (typeof r.data.message !== 'undefined' && r.data.message !== 'OK' && parseInt(r.data.code) === 0) {
                     $vue.$message.success(r.data.message);
                 }
+
                 resolve(r.data)
             } else {
                 $vue.$message.error('网络不给力,请稍后再试!');
@@ -156,6 +163,15 @@ function _getApi (path) {
         $vue.$message.error(`Api '${path}' is not found`);
         return false
     }
+    
+    if (path !== 'login.login') {
+        let token = $vue.getCache('login_token', null);
+        if (typeof token === 'undefined' || token === '' || token === null) {
+            $vue.$router.push({name:'login'})
+        } else {
+            headers.Authorization = token;
+        }
+    } 
     let api = require('../index.js');
     if (api.default) {
         api = api.default
@@ -164,9 +180,10 @@ function _getApi (path) {
     if (path.indexOf('.') < 0) {
         return api[path]
     }
-    path = path.split('.')
+    path = path.split('.');
     path.forEach(item => {
         api = api[item]
-    })
+    });
+
     return api
 }

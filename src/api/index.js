@@ -9,6 +9,8 @@ export default {
     },
     'login':{
         'captcha': urlPre + "/admin/captcha",
-        'reg': urlPre + "/admin/reg"
+        'reg': urlPre + "/admin/reg",
+        'login':urlPre + "/admin/login",
+        'logout':urlPre + "/admin/logout",
     },
 }
